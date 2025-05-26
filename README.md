@@ -3,6 +3,8 @@
 
 An educational platform that leverages artificial intelligence to provide **personalized learning experiences**. This app allows users to ask questions on various academic subjects and receive tailored explanations, as well as generate quizzes to reinforce their understanding.
 
+![Permotion](./Images/AITutor.png)
+
 ---
 
 ## 🚀 Project Overview
