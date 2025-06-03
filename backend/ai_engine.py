@@ -150,3 +150,109 @@ def _create_fallback_quiz(subject, num_questions):
         }
         for i in range(num_questions)
     ]
+
+def _validate_quiz_data(quiz_data):
+    """Helper function to validate quiz data structure"""
+    
+    if not isinstance(quiz_data, list):
+        raise ValueError("Quiz data must be a list of questions")
+    
+    for question in quiz_data:
+        if not isinstance(question, dict):
+            raise ValueError("Each quiz item must be a dictionary")
+            
+        if not all(key in question for key in ["question", "options", "correct_answer"]):
+            raise ValueError("Each quiz item must have question, options, and correct_answer")
+            
+        if not isinstance(question["options"], list) or len(question["options"]) != 4:
+            raise ValueError("Each question must have exactly 4 options")
+        
+
+
+def _parse_quiz_response(response_content, subject, num_questions):
+    """Helper function to parse and validate the quiz response"""
+    
+    try:
+        # Try to find JSON content using regex
+        json_match = re.search(r'```json\s*(\[[\s\S]*?\])\s*```', response_content)
+        
+        if json_match:
+            # Extract JSON from code block
+            quiz_json = json_match.group(1)
+        else:
+            # Try to find raw JSON array
+            json_match = re.search(r'\[\s*\{.*\}\s*\]', response_content, re.DOTALL)
+            if json_match:
+                quiz_json = json_match.group(0)
+            else:
+                # Assume the entire response is JSON
+                quiz_json = response_content
+        
+        # Parse the JSON
+        quiz_data = json.loads(quiz_json)
+        
+        # Validate the data structure
+        _validate_quiz_data(quiz_data)
+        
+        # Ensure we have the requested number of questions
+        if len(quiz_data) > num_questions:
+            quiz_data = quiz_data[:num_questions]
+        
+        # Add explanation field if missing
+        for question in quiz_data:
+            if "explanation" not in question:
+                question["explanation"] = f"The correct answer is {question['correct_answer']}."
+        
+        return quiz_data
+        
+    except (json.JSONDecodeError, ValueError) as e:
+        logger.error(f"Error parsing quiz response: {str(e)}")
+        
+        # Create a fallback quiz if parsing fails
+        return _create_fallback_quiz(subject, num_questions)
+    
+
+
+
+def generate_quiz(subject, level, num_questions=5, reveal_answer=True):
+    """
+    Generate a quiz with multiple-choice questions based on subject and level.
+    
+    Args:
+        subject (str): The academic subject
+        level (str): Learning level (Beginner, Intermediate, Advanced)
+        num_questions (int): Number of questions to generate
+        reveal_answer (bool): Whether to format the response with hidden answers that can be revealed
+    
+    Returns:
+        dict: Contains quiz data (list of questions) and formatted HTML if reveal_answer is True
+    """
+    try:
+        # Get LLM instance
+        llm = get_llm()
+        
+        # Create a structured prompt for quiz generation
+        prompt = _create_quiz_prompt(subject, level, num_questions)
+        
+        # Generate response
+        logger.info(f"Generating quiz for subject: {subject}, level: {level}, questions: {num_questions}")
+        response = llm([HumanMessage(content=prompt)])
+        
+        # Parse and validate the response
+        quiz_data = _parse_quiz_response(response.content, subject, num_questions)
+        
+        # Format the quiz with hidden answers if requested
+        if reveal_answer:
+            formatted_quiz = _format_quiz_with_reveal(quiz_data)
+            return {
+                "quiz_data": quiz_data,
+                "formatted_quiz": formatted_quiz
+            }
+        else:
+            return {
+                "quiz_data": quiz_data
+            }
+        
+    except Exception as e:
+        logger.error(f"Error generating quiz: {str(e)}")
+        raise Exception(f"Failed to generate quiz: {str(e)}")
