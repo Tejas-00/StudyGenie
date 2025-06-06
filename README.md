@@ -51,12 +51,12 @@ The **AI-Powered Tutor & Quiz App** offers:
 ## 🔄 Workflow
 
 1. User selects preferences in the Streamlit UI (subject, level, learning style, etc.)
-2. User enters a question or quiz request
-3. Streamlit sends the request to the FastAPI backend
-4. Backend validates and forwards it to the AI engine
-5. AI engine constructs a prompt and queries OpenAI via LangChain
-6. Response is parsed and returned to the frontend
-7. Personalized content is displayed to the user
+2. User enters a question or quiz request.
+3. Streamlit sends the request to the FastAPI backend.
+4. Backend validates and forwards it to the AI engine.
+5. AI engine constructs a prompt and queries OpenAI via LangChain.
+6. Response is parsed and returned to the frontend.
+7. Personalized content is displayed to the user.
 
 ---
 
