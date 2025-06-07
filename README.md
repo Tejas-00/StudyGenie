@@ -62,8 +62,8 @@ The **AI-Powered Tutor & Quiz App** offers:
 
 ## 🔍 Key Features
 
-- **🎓 Personalized Learning** – Adapts content to user’s style, proficiency, and background
-- **📚 Multi-Subject Support** – Includes Math, Physics, CS, History, Biology, Programming
+- **🎓 Personalized Learning** – Adapts content to user’s style, proficiency, and background.
+- **📚 Multi-Subject Support** – Includes Math, Physics, CS, History, Biology, Programming.
 - **📝 Quiz Generation** – Custom quizzes for active recall
 - **🌐 Multi-Language Support** – English, Hindi, Spanish, French
 - **🧠 Learning Style Adaptation** – Visual, Text-based, and Hands-on learning formats
