@@ -12,3 +12,6 @@ langchain-google-genai==0.0.5
 # Update LangChain to newer version for better Gemini support
 langchain==0.1.16
 langchain-core==0.1.42
+
+# PDF processing
+PyPDF2==3.0.1
