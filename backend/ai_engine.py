@@ -1,5 +1,5 @@
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage
 import os
 from dotenv import load_dotenv
 import json
@@ -13,15 +13,16 @@ logger = logging.getLogger(__name__)
 
 
 load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = "AIzaSyDatfjdPnshQp7erzGchPYzV5fsxajH4aY"
 
 
+# In get_llm() function
 def get_llm():
     try:
-        return ChatOpenAI(
+        return ChatGoogleGenerativeAI(
             temperature=0.7,
-            model_name="gpt-3.5-turbo",
-            openai_api_key=OPENAI_API_KEY
+            model="gemini-2.5-flash",  # Gemini's most capable model
+            google_api_key=GEMINI_API_KEY
         )
     except Exception as e:
         logger.error(f"Error initializing LLM: {str(e)}")
