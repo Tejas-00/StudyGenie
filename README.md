@@ -206,17 +206,23 @@ streamlit run app.py
 ---
 
 ## Project Structure
-StudyGenie/ 
-│ ├── backend/ 
-│ ├── ai_engine.py # AI logic, prompt engineering, quiz/flashcard generation 
-│ └── main.py # FastAPI app, API endpoints 
-│ ├── frontend/ 
-│ └── app.py # Streamlit UI 
-│ ├── Images/ 
-│ └── AITutor.png # App screenshot 
-│ ├── requirements.txt # Python dependencies 
-├── runtime.txt # Python version 
-├── .gitignore 
+StudyGenie/
+│
+├── backend/
+│   ├── ai_engine.py         # AI logic, prompt engineering, quiz/flashcard generation
+│   ├── main.py              # FastAPI app, API endpoints
+│   └── utils.py             # Utility functions (if any)
+│
+├── frontend/
+│   └── app.py               # Streamlit UI
+│
+├── Images/
+│   └── AITutor.png          # App screenshot(s)
+│
+├── requirements.txt         # Python dependencies
+├── runtime.txt              # Python version
+├── .env.example             # Example environment variables
+├── .gitignore
 └── README.md
 
 
