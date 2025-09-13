@@ -206,6 +206,8 @@ streamlit run app.py
 ---
 
 ## Project Structure
+
+```
 StudyGenie/
 │
 ├── backend/
@@ -224,6 +226,7 @@ StudyGenie/
 ├── .env.example             # Example environment variables
 ├── .gitignore
 └── README.md
+```
 
 
 ---
