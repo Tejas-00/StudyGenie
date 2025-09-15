@@ -68,9 +68,6 @@ class PDFDiscussionResponse(BaseModel):
 
 @app.post("/tutor", response_model=TutorResponse)
 async def get_tutoring_response(data: TutorRequest):
-    """
-    Generate a personalized tutoring explanation based on user preferences.
-    """
     try:
         explanation = generate_tutoring_response(
             data.subject, 
@@ -80,10 +77,10 @@ async def get_tutoring_response(data: TutorRequest):
             data.background, 
             data.language
         )
-        
         return {"response": explanation}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating explanation: {str(e)}")
+        return {"response": f"❌ Error generating explanation: {str(e)}"}
+
 
 @app.post("/quiz", response_model=QuizResponse)
 async def generate_quiz_api(data: QuizRequest):
