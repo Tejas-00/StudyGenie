@@ -14,7 +14,7 @@ from ai_engine import generate_tutoring_response, generate_quiz
 
 # Load environment variables
 load_dotenv()
-GEMINI_API_KEY = "AIzaSyDatfjdPnshQp7erzGchPYzV5fsxajH4aY"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 app = FastAPI(
     title="AI Tutor API",

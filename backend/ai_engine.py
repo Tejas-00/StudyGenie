@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 load_dotenv()
-GEMINI_API_KEY = "AIzaSyDatfjdPnshQp7erzGchPYzV5fsxajH4aY"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 # In get_llm() function

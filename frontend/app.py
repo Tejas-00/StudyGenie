@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
 import streamlit as st
 import requests
 import uuid
 import random
 from streamlit.components.v1 import html
+
+load_dotenv()
 
 # Page configuration
 st.set_page_config(page_title="📚 AI Tutor", layout="wide")
@@ -41,7 +45,7 @@ with st.sidebar:
     )
 
 
-API_ENDPOINT = "http://127.0.0.1:8000"
+API_ENDPOINT = os.getenv("BACKEND_URL")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Ask a Question", "🧠 Take a Quiz", "📄 Upload PDF", "🃏 Flashcards", "💬 Discuss"])
 
