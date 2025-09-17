@@ -79,7 +79,7 @@ async def get_tutoring_response(data: TutorRequest):
         )
         return {"response": explanation}
     except Exception as e:
-        return {"response": f"❌ Error generating explanation: {str(e)}"}
+        return {"response": f"❌ Error generating explanation : {str(e)}"}
 
 
 @app.post("/quiz", response_model=QuizResponse)
